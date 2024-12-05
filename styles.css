@@ -1,98 +1,162 @@
-* {
+html {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
 body {
-  min-height: 100dvh;
+  margin: 0;
+  padding: 0;
   display: flex;
-  justify-content: center;
+  background: #7A419B;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7c1599 0%,#921099 48%,#7e4ae8 100%);
+  background-size: cover;
   align-items: center;
+  justify-content: center;
 }
-.video__player {
+
+.player {
+  max-width: 750px;
+  border: 5px solid rgba(0,0,0,0.2);
+  box-shadow: 0 0 20px rgba(0,0,0,0.2);
   position: relative;
-  border: 1px solid black;
-  padding: 10px;
-  margin: 20px;
+  font-size: 0;
+  overflow: hidden;
+}
+
+/* This css is only applied when fullscreen is active. */
+.player:fullscreen {
+  max-width: none;
+  width: 100%;
+}
+
+.player:-webkit-full-screen {
+  max-width: none;
+  width: 100%;
 }
 
 .player__video {
-  position: relative;
   width: 100%;
-  margin-bottom: 10px;
-
 }
 
-.video__player .controls {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.video__player .playback_speed select {
-  padding: 5px;
-  font-size: 14px;
-  border: 1px solid black;
-  background-color: transparent;
-  /* outline: none; */
-  border-radius: 0%;
-}
-
-.skip {
-  display: flex;
-  gap: 20px;
-}
-
-.btn-skip {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1px;
+.player__button {
+  background: none;
+  border: 0;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  outline: 0;
+  padding: 0;
   cursor: pointer;
-  & span {
-    cursor: pointer;
-  }
+  max-width: 50px;
 }
 
-.progress-bar {
-  position: relative;
-  width: 100%;
-  /* background-color: red; */
-  height: 10px;
-  border: 1px solid black;
+.player__button:focus {
+  border-color: #ffc600;
 }
 
-.progress-bar .progress__filled {
-  position: absolute;
-  width: 0;
-  height: 100%;
-  background-color: red;
+.player__slider {
+  width: 10px;
+  height: 30px;
 }
 
-.controls .player__button {
-  position: relative;
-  /* display: block; */
-  /* padding: 5px; */
-  width: 80px;
-  height: 80px;
-  /* background-color: red; */
-}
-
-.player__button > * {
-  width: inherit;
-  height: inherit;
-  position: absolute;
+.player__controls {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  transform: translateY(100%) translateY(-5px);
+  transition: all .3s;
+  flex-wrap: wrap;
+  background: rgba(0,0,0,0.1);
 }
 
-.toggle {
-  /* background-color: white; */
-  z-index: 1000;
+.player:hover .player__controls {
+  transform: translateY(0);
+}
+
+.player:hover .progress {
+  height: 15px;
+}
+
+.player__controls > * {
+  flex: 1;
+}
+
+.progress {
+  flex: 10;
+  position: relative;
+  display: flex;
+  flex-basis: 100%;
+  height: 5px;
+  transition: height 0.3s;
+  background: rgba(0,0,0,0.5);
+  cursor: ew-resize;
+}
+
+.progress__filled {
+  width: 50%;
+  background: #ffc600;
+  flex: 0;
+  flex-basis: 50%;
+}
+
+/* unholy css to style input type="range" */
+
+input[type=range] {
+  -webkit-appearance: none;
+  background: transparent;
+  width: 100%;
+  margin: 0 5px;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0 0 1px rgba(13, 13, 13, 0);
+  background: rgba(255,255,255,0.8);
+  border-radius: 1.3px;
+  border: 0.2px solid rgba(1, 1, 1, 0);
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 15px;
+  width: 15px;
+  border-radius: 50px;
+  background: #ffc600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3.5px;
+  box-shadow:0 0 2px rgba(0,0,0,0.2);
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #bada55;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0), 0 0 1px rgba(13, 13, 13, 0);
+  background: #ffffff;
+  border-radius: 1.3px;
+  border: 0.2px solid rgba(1, 1, 1, 0);
+}
+
+input[type=range]::-moz-range-thumb {
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(13, 13, 13, 0);
+  height: 15px;
+  width: 15px;
+  border-radius: 50px;
+  background: #ffc600;
+  cursor: pointer;
 }
